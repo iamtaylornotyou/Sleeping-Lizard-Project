@@ -1,0 +1,1704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Sleeping Lizard Project</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --sand: #f5f0e8;
+    --sand-dark: #e8e0cc;
+    --bark: #4a3728;
+    --bark-light: #7a5c48;
+    --canopy: #2d4a2d;
+    --canopy-mid: #4a7a4a;
+    --canopy-light: #8ab88a;
+    --canopy-pale: #d4e8d4;
+    --night: #1a1f2e;
+    --night-mid: #2d3550;
+    --night-pale: #e8eaf4;
+    --warm-white: #faf8f4;
+    --text-primary: #1e1a16;
+    --text-muted: #6a5c50;
+    --text-light: #9a8a7a;
+    --accent: #c47a2a;
+    --accent-light: #e8a84a;
+    --divider: rgba(74, 55, 40, 0.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--warm-white);
+    color: var(--text-primary);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(26, 31, 46, 0.97);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding: 0 2rem;
+  }
+
+  .nav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    gap: 2rem;
+  }
+
+  .nav-logo {
+    font-family: 'Lora', serif;
+    font-size: 15px;
+    color: rgba(250,248,244,0.9);
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 0.2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 13px;
+    color: rgba(250,248,244,0.55);
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 20px;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .nav-links a:hover {
+    color: rgba(250,248,244,0.95);
+    background: rgba(255,255,255,0.08);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--night);
+    color: var(--warm-white);
+    padding: 90px 2rem 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background:
+      radial-gradient(ellipse at 75% 30%, rgba(74, 122, 74, 0.12) 0%, transparent 55%),
+      radial-gradient(ellipse at 15% 70%, rgba(196, 122, 42, 0.08) 0%, transparent 45%);
+    pointer-events: none;
+  }
+
+  /* subtle star-like dots */
+  .hero::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image:
+      radial-gradient(1px 1px at 20% 15%, rgba(255,255,255,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 55% 8%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 80% 22%, rgba(255,255,255,0.35) 0%, transparent 100%),
+      radial-gradient(1px 1px at 35% 40%, rgba(255,255,255,0.2) 0%, transparent 100%),
+      radial-gradient(1px 1px at 90% 55%, rgba(255,255,255,0.25) 0%, transparent 100%),
+      radial-gradient(1px 1px at 10% 60%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 65% 70%, rgba(255,255,255,0.15) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 45% 25%, rgba(255,255,255,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 28% 80%, rgba(255,255,255,0.2) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 72% 12%, rgba(255,255,255,0.45) 0%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(138, 184, 138, 0.12);
+    border: 1px solid rgba(138, 184, 138, 0.3);
+    color: var(--canopy-light);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--canopy-light);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .hero h1 {
+    font-family: 'Lora', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--warm-white);
+    margin-bottom: 1.25rem;
+    max-width: 620px;
+  }
+
+  .hero h1 em {
+    color: var(--canopy-light);
+    font-style: italic;
+  }
+
+  .hero-sub {
+    font-size: 17px;
+    font-weight: 300;
+    color: rgba(250, 248, 244, 0.65);
+    max-width: 540px;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+
+  .hero-sub strong {
+  font-weight: 600;
+}
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--canopy-mid);
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 12px 24px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+
+  .hero-cta:hover { background: var(--canopy-light); }
+
+  .hero-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    min-width: 190px;
+  }
+
+  .meta-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.09);
+    border-radius: 10px;
+    padding: 16px 20px;
+  }
+
+  .meta-card .label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(250,248,244,0.4);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .meta-card .value {
+    font-family: 'Lora', serif;
+    font-size: 20px;
+    color: var(--canopy-light);
+    font-weight: 600;
+    display: block;
+    line-height: 1.2;
+  }
+
+  .meta-card .sub {
+    font-size: 12px;
+    color: rgba(250,248,244,0.45);
+    margin-top: 2px;
+    display: block;
+  }
+
+  /* ── SECTION LAYOUT ── */
+  section {
+    padding: 72px 2rem;
+  }
+
+  section:nth-child(even) {
+    background: var(--sand);
+  }
+
+  .section-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--canopy-mid);
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-family: 'Lora', serif;
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    font-weight: 600;
+    color: var(--bark);
+    margin-bottom: 1rem;
+    line-height: 1.25;
+  }
+
+  .section-intro {
+    font-size: 16px;
+    color: var(--text-muted);
+    max-width: 680px;
+    margin-bottom: 2.5rem;
+    line-height: 1.8;
+  }
+
+  /* ── OVERVIEW ── */
+  .overview-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 3.5rem;
+    align-items: start;
+  }
+
+  .overview-body p {
+    font-size: 16px;
+    color: var(--text-muted);
+    line-height: 1.85;
+    margin-bottom: 1.1rem;
+  }
+
+  .overview-body p strong {
+    color: var(--text-primary);
+    font-weight: 500;
+  }
+
+  .overview-body p em {
+    font-style: italic;
+    color: var(--text-muted);
+  }
+
+  .highlight-box {
+    background: var(--night-pale);
+    border-left: 3px solid var(--night-mid);
+    padding: 1.25rem 1.5rem;
+    border-radius: 0 8px 8px 0;
+    margin-top: 1.5rem;
+  }
+
+  .highlight-box p {
+    font-family: 'Lora', serif;
+    font-size: 15.5px;
+    color: var(--night-mid);
+    font-style: italic;
+    line-height: 1.7;
+  }
+
+  .question-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .question-item {
+    display: flex;
+    gap: 1rem;
+    align-items: start;
+    padding: 1.25rem;
+    background: white;
+    border: 1px solid var(--divider);
+    border-radius: 10px;
+  }
+
+  .q-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    background: var(--night);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 18px;
+  }
+
+  .q-text {
+    font-size: 14.5px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    padding-top: 5px;
+  }
+
+  .q-text strong {
+    display: block;
+    color: var(--text-primary);
+    font-size: 15px;
+    margin-bottom: 3px;
+  }
+
+  /* ── TRANSECT MAP ── */
+  .transect-section {
+    background: var(--night) !important;
+    padding: 72px 2rem;
+  }
+
+  .transect-section .section-label {
+    color: var(--canopy-light);
+  }
+
+  .transect-section .section-title {
+    color: var(--warm-white);
+  }
+
+  .transect-section .section-intro {
+    color: rgba(250,248,244,0.6);
+  }
+
+  .transect-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    align-items: start;
+  }
+
+  .transect-map-wrap {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .transect-map-wrap img {
+    width: 100%;
+    display: block;
+  }
+
+  .transect-caption {
+    font-size: 13px;
+    color: rgba(250,248,244,0.45);
+    margin-top: 0.75rem;
+    font-style: italic;
+  }
+
+  .transect-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .transect-stat {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    padding: 1.25rem 1.5rem;
+  }
+
+  .transect-stat .ts-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(250,248,244,0.4);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .transect-stat .ts-value {
+    font-family: 'Lora', serif;
+    font-size: 22px;
+    color: var(--canopy-light);
+    font-weight: 600;
+    display: block;
+  }
+
+  .transect-stat .ts-desc {
+    font-size: 13px;
+    color: rgba(250,248,244,0.5);
+    margin-top: 4px;
+    display: block;
+    line-height: 1.5;
+  }
+
+  .transect-note {
+    background: rgba(196,122,42,0.1);
+    border: 1px solid rgba(196,122,42,0.25);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    font-size: 13.5px;
+    color: rgba(250,248,244,0.7);
+    line-height: 1.6;
+  }
+
+  .transect-note strong {
+    color: var(--accent-light);
+    display: block;
+    margin-bottom: 4px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .transect-bottom-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    align-items: start;
+    margin-top: 3rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .transect-bottom-text p {
+    font-size: 15px;
+    color: rgba(250,248,244,0.65);
+    line-height: 1.85;
+    margin-bottom: 1rem;
+  }
+
+  .transect-bottom-text p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* ── GETTING STARTED ── */
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .step-card {
+    background: white;
+    border: 1px solid var(--divider);
+    border-radius: 12px;
+    padding: 1.75rem;
+  }
+
+  .step-number {
+    font-family: 'Lora', serif;
+    font-size: 48px;
+    font-weight: 600;
+    color: var(--sand-dark);
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+
+  .step-card h3 {
+    font-family: 'Lora', serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--bark);
+    margin-bottom: 0.75rem;
+  }
+
+  .step-card p {
+    font-size: 14.5px;
+    color: var(--text-muted);
+    line-height: 1.65;
+  }
+
+  .step-card .step-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 1.25rem;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--canopy-mid);
+    text-decoration: none;
+    border: 1px solid var(--canopy-pale);
+    background: var(--canopy-pale);
+    padding: 7px 14px;
+    border-radius: 20px;
+    transition: all 0.2s;
+  }
+
+  .step-card .step-action:hover {
+    background: var(--canopy-mid);
+    border-color: var(--canopy-mid);
+    color: white;
+  }
+
+  /* ── PROTOCOL ── */
+  .protocol-layout {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .protocol-nav {
+    position: sticky;
+    top: 80px;
+    background: var(--night);
+    border-radius: 12px;
+    padding: 1rem;
+  }
+
+  .protocol-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 13px;
+    border-radius: 8px;
+    font-size: 13px;
+    color: rgba(250,248,244,0.8);
+    text-decoration: none;
+    transition: all 0.2s;
+    width: 100%;
+  }
+
+  .protocol-nav-item:hover {
+    background: rgba(255,255,255,0.15);
+    color: var(--warm-white);
+  }
+
+  .pnav-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: rgba(250,248,244,0.5);
+    flex-shrink: 0;
+  }
+
+  .protocol-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .protocol-step {
+    background: white;
+    border: 1px solid var(--divider);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .protocol-step-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.1rem 1.5rem;
+    border-bottom: 1px solid var(--divider);
+    background: var(--sand);
+  }
+
+  .step-badge {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: var(--canopy-pale);
+    color: var(--canopy);
+    padding: 4px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+
+  .step-badge.night {
+    background: var(--night);
+    color: var(--canopy-light);
+  }
+
+  .protocol-step-header h3 {
+    font-family: 'Lora', serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--bark);
+  }
+
+  .protocol-step-body {
+    padding: 1.5rem;
+  }
+
+  .protocol-step-body > p {
+    font-size: 14.5px;
+    color: var(--text-muted);
+    line-height: 1.75;
+    margin-bottom: 1rem;
+  }
+
+  .checklist {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .checklist li {
+    display: flex;
+    align-items: start;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    padding: 2px 0;
+  }
+
+  .checklist li::before {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 1.5px solid var(--canopy-mid);
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .sub-checklist {
+    list-style: none;
+    margin-top: 0.4rem;
+    margin-left: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .sub-checklist li {
+    font-size: 13.5px;
+    color: var(--text-light);
+    display: flex;
+    align-items: start;
+    gap: 8px;
+    line-height: 1.5;
+  }
+
+  .sub-checklist li::before {
+    content: '–';
+    color: var(--sand-dark);
+    flex-shrink: 0;
+    font-size: 12px;
+    margin-top: 2px;
+  }
+
+  .note-box {
+    background: #fef9ed;
+    border: 1px solid #f0d890;
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    margin-top: 1rem;
+    display: flex;
+    gap: 0.75rem;
+    align-items: start;
+  }
+
+  .note-box .note-icon { font-size: 15px; flex-shrink: 0; margin-top: 2px; }
+  .note-box p { font-size: 13.5px; color: #7a6a2a; margin: 0 !important; line-height: 1.65; }
+
+  .warning-box {
+    background: #fdf0f0;
+    border: 1px solid #f0c0c0;
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    margin-top: 1rem;
+    display: flex;
+    gap: 0.75rem;
+    align-items: start;
+  }
+
+  .warning-box .note-icon { font-size: 15px; flex-shrink: 0; margin-top: 2px; }
+  .warning-box p { font-size: 13.5px; color: #8a2a2a; margin: 0 !important; line-height: 1.65; }
+
+  .data-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+  }
+
+  .data-field {
+    background: var(--sand);
+    border: 1px solid var(--divider);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+  }
+
+  .data-field .field-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--text-light);
+    font-weight: 500;
+    display: block;
+    margin-bottom: 3px;
+  }
+
+  .data-field .field-desc {
+    font-size: 13.5px;
+    color: var(--text-muted);
+  }
+
+  .timing-row {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .timing-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--night);
+    color: var(--canopy-light);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 20px;
+  }
+
+  /* ── EQUIPMENT ── */
+  .equipment-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .equip-group {
+    background: white;
+    border: 1px solid var(--divider);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .equip-group-header {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--divider);
+    background: var(--sand);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .equip-group-header h3 {
+    font-family: 'Lora', serif;
+    font-size: 16px;
+    color: var(--bark);
+    font-weight: 600;
+  }
+
+  .equip-group-body {
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .equip-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14.5px;
+    color: var(--text-muted);
+    padding: 6px 0;
+    border-bottom: 1px solid var(--divider);
+  }
+
+  .equip-item:last-child { border-bottom: none; }
+
+  .equip-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .equip-dot.required { background: var(--canopy-mid); }
+  .equip-dot.optional { background: var(--sand-dark); }
+
+  .ibutton-note {
+    background: var(--night-pale);
+    border: 1px solid rgba(45,53,80,0.15);
+    border-radius: 10px;
+    padding: 1.25rem 1.5rem;
+    margin-top: 1.5rem;
+    font-size: 14px;
+    color: var(--night-mid);
+    line-height: 1.7;
+  }
+
+  .ibutton-note strong {
+    display: block;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--night);
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+
+  /* ── MATERIALS ── */
+  .materials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .material-card {
+    background: white;
+    border: 1px solid var(--divider);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: border-color 0.2s;
+  }
+
+  .material-card:hover { border-color: var(--canopy-light); }
+
+  .material-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    margin-bottom: 1rem;
+  }
+
+  .material-card h3 {
+    font-family: 'Lora', serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--bark);
+    margin-bottom: 0.5rem;
+  }
+
+  .material-card p {
+    font-size: 13.5px;
+    color: var(--text-muted);
+    line-height: 1.65;
+    margin-bottom: 1rem;
+  }
+
+  .download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--canopy-mid);
+    text-decoration: none;
+    border: 1px solid var(--canopy-pale);
+    background: var(--canopy-pale);
+    padding: 7px 14px;
+    border-radius: 20px;
+    transition: all 0.2s;
+  }
+
+  .download-btn:hover {
+    background: var(--canopy-mid);
+    border-color: var(--canopy-mid);
+    color: white;
+  }
+
+  .download-btn svg { width: 13px; height: 13px; }
+
+  /* ── CONTACT ── */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .contact-card {
+    background: white;
+    border: 1px solid var(--divider);
+    border-radius: 14px;
+    padding: 2rem;
+  }
+
+  .contact-header {
+    display: flex;
+    gap: 1.25rem;
+    align-items: start;
+    margin-bottom: 1.25rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--divider);
+  }
+
+  .contact-avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--canopy-pale);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Lora', serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--canopy);
+    flex-shrink: 0;
+  }
+
+  .contact-info h3 {
+    font-family: 'Lora', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--bark);
+    margin-bottom: 3px;
+  }
+
+  .contact-info .role {
+    font-size: 13px;
+    color: var(--text-light);
+  }
+
+  .contact-info .affil {
+    font-size: 13px;
+    color: var(--canopy-mid);
+    font-style: italic;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .contact-link:hover { color: var(--canopy); }
+
+  .contact-link svg {
+    width: 15px;
+    height: 15px;
+    color: var(--text-light);
+    flex-shrink: 0;
+  }
+
+  .collab-banner {
+    background: var(--night);
+    border-radius: 14px;
+    padding: 2rem 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-top: 2.5rem;
+  }
+
+  .collab-banner h3 {
+    font-family: 'Lora', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--warm-white);
+    margin-bottom: 0.4rem;
+  }
+
+  .collab-banner p {
+    font-size: 14px;
+    color: rgba(250,248,244,0.6);
+  }
+
+  .collab-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--canopy-mid);
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 12px 22px;
+    border-radius: 8px;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.2s;
+  }
+
+  .collab-btn:hover { background: var(--canopy-light); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--night);
+    color: rgba(250,248,244,0.45);
+    padding: 2.5rem 2rem;
+    font-size: 13px;
+  }
+
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .footer-logo {
+    font-family: 'Lora', serif;
+    font-size: 14px;
+    color: rgba(250,248,244,0.8);
+    font-weight: 600;
+  }
+
+  footer a {
+    color: rgba(250,248,244,0.45);
+    text-decoration: none;
+  }
+
+  footer a:hover { color: rgba(250,248,244,0.9); }
+
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 780px) {
+    .hero-inner,
+    .overview-grid,
+    .transect-layout,
+    .transect-bottom-row,
+    .protocol-layout,
+    .equipment-split { grid-template-columns: 1fr; }
+    .hero-meta { flex-direction: row; flex-wrap: wrap; }
+    .meta-card { flex: 1; min-width: 130px; }
+    .protocol-nav { display: none; }
+    .collab-banner { flex-direction: column; }
+    .footer-inner { flex-direction: column; }
+    .data-fields { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">🦎 The Sleeping Lizard Project</a>
+    <ul class="nav-links">
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#transect">Pilot project</a></li>
+      <li><a href="#getting-started">Get started</a></li>
+      <li><a href="#protocol">Protocol</a></li>
+      <li><a href="#materials">Materials</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        Cross-institution Research Collaboration
+      </div>
+      <h1>When do lizards stop sleeping in the trees?</h1>
+      <p class="hero-sub">Green anoles sleep exposed on leaves and twigs all summer long — then vanish in winter. We're building a network of collaborators to track <em>Anolis carolinensis</em> sleeping habits across their range. We want to know <strong>when</strong> green anoles change their sleeping perch in an effort to understand thermal evolution at range edges. </p>
+      <a href="#getting-started" class="hero-cta">
+        Join the network
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+    </div>
+    <div class="hero-meta">
+      <div class="meta-card">
+        <span class="label">Start time</span>
+        <span class="value">1 hr after sunset</span>
+        <span class="sub">each survey night</span>
+      </div>
+      <div class="meta-card">
+        <span class="label">Transect length</span>
+        <span class="value">500–1000m</span>
+        <span class="sub">both sides surveyed simultaneously</span>
+      </div>
+      <div class="meta-card">
+        <span class="label">Frequency</span>
+        <span class="value">Weekly</span>
+        <span class="sub">or bi-weekly throughout season</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- OVERVIEW -->
+<section id="overview">
+  <div class="section-inner">
+    <p class="section-label">About the project</p>
+    <h2 class="section-title">A nocturnal window into thermal limits</h2>
+    <div class="overview-grid">
+      <div class="overview-body">
+        <p>Anoles commonly sleep exposed on leaves and twigs so they can sense approaching predators — a snake slinking down a branch triggers a drop to the ground and escape. This survival strategy is very effective in warm tropical environments, but in temperate climates, sleeping exposed can be risky. If low overnight temperatures dip below the lizard's cold tolerance limit, it risks death.</p>
+        <p>Despite these challenges, the <strong>green anole</strong> (<em>Anolis carolinensis</em>), an ancestrally tropical lizard, lives as far north as Virginia. In the spring and summer, anoles can be found sleeping out on leaf tips after dark — but in the winter, they disappear completely in temperate regions. <strong>Where do they go? When do they switch their sleeping behavior?</strong></p>
+        <p>To answer these questions, we conduct weekly evening spotlight surveys along a standardized transect. By tracking lizard abundance, perch characteristics, and air temperature throughout the seasonal transition we can pinpoint when anoles shift their behavior and begin seeking nocturnal refuges. We are excited to collaborate across the green anole's range to test for local adaptation in thermal limits or seasonal behavior patterns.</p>
+        <div class="highlight-box">
+          <p>"In warm months it is common to see them sleeping exposed out on leaves, but they disappear completely in the winter. Where do they go? When does the switch happen? Let's find out!"</p>
+        </div>
+      </div>
+      <div class="question-cards">
+        <div class="question-item">
+          <div class="q-icon">🌙</div>
+          <div class="q-text">
+            <strong>Timing of behavioral shift</strong>
+            At what air temperature do green anoles stop sleeping exposed? Is there a sharp threshold or a gradual transition?
+          </div>
+        </div>
+        <div class="question-item">
+          <div class="q-icon">🌡️</div>
+          <div class="q-text">
+            <strong>Thermal exposure at night</strong>
+            How cold does it actually get at the perch heights where lizards sleep, versus on the ground, or in the leaf litter? iButton loggers capture this directly.
+          </div>
+        </div>
+        <div class="question-item">
+          <div class="q-icon">🍃</div>
+          <div class="q-text">
+            <strong>Perch selection</strong>
+            Do lizards shift perch height, perch type, or microhabitat as temperatures cool — before disappearing entirely?
+          </div>
+        </div>
+        <div class="question-item">
+          <div class="q-icon">🗺️</div>
+          <div class="q-text">
+            <strong>Geographic variation</strong>
+            Does the behavioral switch happen at the same temperature across the range, or do northern populations have different thresholds?
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRANSECT MAP -->
+<section class="transect-section" id="transect">
+  <div class="section-inner">
+    <div class="transect-layout">
+      <div>  <!-- left column: label, title, intro, map -->
+        <p class="section-label">Pilot Project</p>
+        <h2 class="section-title" style="color: var(--warm-white);">The transect</h2>
+        <p class="section-intro">Our study site at Georgia Tech is a 7-acre natural area on campus where cultivation of native plants is prioritized and trails provide easy access throughout. Green anoles are abundant and obvious on sunny days. Your institution's transect should follow similar principles.</p>
+        <div class="transect-map-wrap">
+          <img src="study_site_transect.png" alt="Aerial map of the GT EcoCommons study site showing the survey transect route marked in yellow, starting near State Street NW and ending near the GTRI Research area, passing through the EcoCommons natural area.">
+        </div>
+        <p class="transect-caption">Fig. 1 — GT EcoCommons study area and transect. Dotted line segment is not re-surveyed (surveyed outbound only).</p>
+      </div>
+      <div class="transect-details">  <!-- right column: stat cards -->
+        <div class="transect-stat">
+          <span class="ts-label">Site area</span>
+          <span class="ts-value">5–10 acres</span>
+          <span class="ts-desc">Natural area with lots of vegetation. Repeatable and easy to navigate.</span>
+        </div>
+        <div class="transect-stat">
+          <span class="ts-label">Transect length</span>
+          <span class="ts-value">500–1000 m</span>
+          <span class="ts-desc">Both sides surveyed simultaneously by the observer team</span>
+        </div>
+        <div class="transect-stat">
+          <span class="ts-label">Survey duration</span>
+          <span class="ts-value">1 hour</span>
+          <span class="ts-desc">Walking the full transect at a steady pace with all observers scanning</span>
+        </div>
+        <div class="transect-note">
+          <strong>⚠ Follow the transect exactly</strong>
+          Staying on route is essential for quantifying search effort and ensuring lizards are not re-sampled. Any deviation should be noted on the datasheet.
+        </div>
+        <div class="transect-note" style="background: rgba(138,184,138,0.1); border-color: rgba(138,184,138,0.25);">
+          <strong style="color: var(--canopy-light);">🏛 Your institution's site</strong>
+          <span style="color: rgba(250,248,244,0.65);">We recommend surveying potential sites on warm sunny days to confirm green anoles are present. These lizards like well-vegetated areas with ample edge habitat.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- bottom row: text left, image right -->
+    <div class="transect-bottom-row">
+      <div class="transect-bottom-text">
+        <p>As ectotherms, lizards maintain body temperature by behaviorally thermoregulating — basking in the sun, escaping to thermally-stable refugia. As air temperatures drop during the cooler months, green anoles increasingly abandon their arboreal sleeping positions in favor of more thermally buffered refuges. This behavioral shift is the central focus of our weekly surveys. Tracking the timing and magnitude of this transition across sites gives us insight into inter-population variability in response to temperature and to probe whether thermal behavioral thresholds differ across the species' range.</p>
+        <p>The image to the right shows the total number of lizards encountered during a survey night. Pairing these data with concurrerent air temperature logging, illustrates that sleeping behavior is closely tied to minimum air temperature. Expanding these data across the <em>Anolis carolinensis</em> range could reveal local adaptation.</p>
+      </div>
+      <div class="transect-bottom-img">
+        <div class="transect-map-wrap">
+          <img src="lizards_temp.png" alt="Graph showing body temperature measurements of green anoles recorded during a nocturnal survey, plotted against time or air temperature.">
+        </div>
+        <p class="transect-caption">Fig. 2 — Total <em>Anolis carolinensis</em> recorded during a nocturnal survey at the GT EcoCommons site. Each point represents a single survey night with 0-lizard nights in gray. Minimum air temperature recorded by iButtons in the 24 hours preceding the survey.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- GETTING STARTED -->
+<section id="getting-started">
+  <div class="section-inner">
+    <p class="section-label">Joining the network</p>
+    <h2 class="section-title">How to get your institution involved</h2>
+    <p class="section-intro">To get started, reach out for a quick conversation with the project leads, find a suitable study site, and get IACUC approval at your institution. Here's the path from start to your first survey night.</p>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-number">01</div>
+        <h3>Contact the project leads</h3>
+        <p>Reach out to get started. We will discuss picking the perfect transect, when you should start surveying, and walk you through the protocol. This conversation ensures consistent data collection across the region.</p>
+        <a href="#contact" class="step-action">
+          Get in touch
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+      <div class="step-card">
+        <div class="step-number">02</div>
+        <h3>Identify a study site</h3>
+        <p>Select a semi-natural area with reliable green anole populations and consistent evening access throughout the year. Map a 500–1000m transect around the area, including known green anole sleeping sites.</p>
+        <a href="#transect" class="step-action">
+          See our example site
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+      <div class="step-card">
+        <div class="step-number">03</div>
+        <h3>Submit an IACUC protocol</h3>
+        <p>Many institutions require IACUC approval, even if your team does not intend to capture lizards. We provide a template based on our approved GT protocol — your coordinator can adapt it for submission to your institution. Start this process early; there are often many stages of review.</p>
+        <a href="#materials" class="step-action">
+          Download template
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+      <div class="step-card">
+        <div class="step-number">04</div>
+        <h3>Gather equipment</h3>
+        <p>Core gear is simple: datasheets, clipboard, tape measure, and headlamps or flashlights. Optional temperature data is highly valuable — iButton loggers and a thermocouple allow site-specific microclimate characterization beyond what weather stations provide.</p>
+        <a href="#protocol" class="step-action">
+          View full equipment list
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+      <div class="step-card">
+        <div class="step-number">05</div>
+        <h3>Read the protocol</h3>
+        <p>All surveyors must be familiar with the full protocol before the first survey. Pay particular attention to the data collection section — consistent recording of perch type, height, and width is essential for data integrity.</p>
+        <a href="#protocol" class="step-action">
+          Read protocol
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+      <div class="step-card">
+        <div class="step-number">06</div>
+        <h3>Start surveying &amp; submit data</h3>
+        <p>Enter data into the shared network spreadsheet after each survey. Back up your datasheets — scan or photograph them and store in at least two locations. The lead team reviews submissions on a rolling basis and will flag any issues.</p>
+        <a href="#materials" class="step-action">
+          Open data spreadsheet
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EQUIPMENT -->
+<section>
+  <div class="section-inner">
+    <p class="section-label">What to bring</p>
+    <h2 class="section-title">Equipment</h2>
+    <p class="section-intro">Evening surveys require minimal gear. Temperature data collection is strongly encouraged but not required to participate.</p>
+    <div class="equipment-split">
+      <div class="equip-group">
+        <div class="equip-group-header">
+          <span style="font-size: 20px;">✅</span>
+          <h3>Required</h3>
+        </div>
+        <div class="equip-group-body">
+          <div class="equip-item"><div class="equip-dot required"></div>Datasheet (printed, one per survey)</div>
+          <div class="equip-item"><div class="equip-dot required"></div>Writing implement (pencil recommended)</div>
+          <div class="equip-item"><div class="equip-dot required"></div>Clipboard</div>
+          <div class="equip-item"><div class="equip-dot required"></div>Tape measure</div>
+          <div class="equip-item"><div class="equip-dot required"></div>Headlamp and/or flashlight (each surveyor)</div>
+        </div>
+      </div>
+      <div class="equip-group">
+        <div class="equip-group-header">
+          <span style="font-size: 20px;">⭐</span>
+          <h3>Optional (strongly recommended)</h3>
+        </div>
+        <div class="equip-group-body">
+          <div class="equip-item"><div class="equip-dot optional"></div>iButtons or other temperature data logger</div>
+          <div class="equip-item"><div class="equip-dot optional"></div>Lizard pole (for capture)</div>
+          <div class="equip-item"><div class="equip-dot optional"></div>Thermocouple with thin wire probe (for body temperature)</div>
+        </div>
+      </div>
+    </div>
+    <div class="ibutton-note">
+      <strong>About iButton temperature loggers</strong>
+      iButtons are deployed in paired sets (to account for failure rates) inside painted copper pipes (2cm diameter × 7cm), sealed with corks. Tree loggers are zip-tied to branches ~2m off the ground. Leaf litter loggers are buried in litter or pine straw deep enough to cover the tube fully. Rock loggers go under rocks or in crevices where they can be reliably retrieved. Deployment is optional but provides site-specific thermal data that weather station records cannot replace. Contact us for deployment guidance.
+    </div>
+  </div>
+</section>
+
+<!-- PROTOCOL -->
+<section id="protocol">
+  <div class="section-inner">
+    <p class="section-label">Survey methodology</p>
+    <h2 class="section-title">Step-by-step survey protocol</h2>
+    <p class="section-intro">All surveys must follow this protocol. Any deviations — weather, visibility, personnel — should be recorded in the datasheet and flagged to the lead team.</p>
+
+    <div class="protocol-layout">
+      <nav class="protocol-nav" aria-label="Protocol steps">
+        <a class="protocol-nav-item" href="#ps1"><div class="pnav-dot"></div>Survey timing</a>
+        <a class="protocol-nav-item" href="#ps2"><div class="pnav-dot"></div>Starting info</a>
+        <a class="protocol-nav-item" href="#ps3"><div class="pnav-dot"></div>Walking the transect</a>
+        <a class="protocol-nav-item" href="#ps4"><div class="pnav-dot"></div>Lizard encounters</a>
+        <a class="protocol-nav-item" href="#ps5"><div class="pnav-dot"></div>Capture &amp; Tbody</a>
+        <a class="protocol-nav-item" href="#ps6"><div class="pnav-dot"></div>Ending the survey</a>
+        <a class="protocol-nav-item" href="#ps7"><div class="pnav-dot"></div>Data backup</a>
+      </nav>
+
+      <div class="protocol-steps">
+
+        <div class="protocol-step" id="ps1">
+          <div class="protocol-step-header">
+            <span class="step-badge night">Timing</span>
+            <h3>Survey timing &amp; duration</h3>
+          </div>
+          <div class="protocol-step-body">
+            <p>Surveys occur in the evening, 1 hour after sunset. This timing ensures lizards are settled into their sleeping spots, won't be disturbed by surveyors, and are detectable by spotlight.</p>
+            <div class="timing-row">
+              <span class="timing-chip">🌇 Start: 1 hour after sunset</span>
+              <span class="timing-chip">⏱ Duration: 1 hour</span>
+            </div>
+            <p>The survey ends when the team reaches the end of the transect — do not turn back early. Record the end time on the datasheet when you arrive at the end point.</p>
+          </div>
+        </div>
+
+        <div class="protocol-step" id="ps2">
+          <div class="protocol-step-header">
+            <span class="step-badge">Step 1</span>
+            <h3>Record all starting information</h3>
+          </div>
+          <div class="protocol-step-body">
+            <p>Before walking, fill in the header block on the datasheet. These fields are required — an incomplete header means the survey cannot be entered into the database.</p>
+            <div class="data-fields">
+              <div class="data-field">
+                <span class="field-label">Survey date</span>
+                <span class="field-desc">YYYY-MM-DD format</span>
+              </div>
+              <div class="data-field">
+                <span class="field-label">Start time</span>
+                <span class="field-desc">24:00 format</span>
+              </div>
+              <div class="data-field">
+                <span class="field-label">Starting Tair</span>
+                <span class="field-desc">Air temperature in °C (if measured)</span>
+              </div>
+              <div class="data-field">
+                <span class="field-label">Surveyors</span>
+                <span class="field-desc">Initials of every person on the survey</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="protocol-step" id="ps3">
+          <div class="protocol-step-header">
+            <span class="step-badge">Step 2</span>
+            <h3>Walk the transect — begin looking for lizards</h3>
+          </div>
+          <div class="protocol-step-body">
+            <p>All observers should walk together and survey both sides of the transect simultaneously, scanning vegetation with headlamps and flashlights. Check leaves, twigs, branches, trunks, rocks, and roots.</p>
+            <ul class="checklist">
+              <li>Both sides of the transect are surveyed at the same time — do not split up</li>
+              <li>Follow the mapped transect exactly — do not cut corners or extend into unsurveyed area</li>
+              <li>Stop walking to record each encounter</li>
+            </ul>
+            <div class="note-box">
+              <span class="note-icon">💡</span>
+              <p>Green anoles sleeping on leaves often appear pale or white-ish under a headlamp — quite different from their daytime coloration. Look for this characteristic at the tips of branches and on the upper surfaces of leaves.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="protocol-step" id="ps4">
+          <div class="protocol-step-header">
+            <span class="step-badge">Step 3</span>
+            <h3>When a lizard is spotted — always record</h3>
+          </div>
+          <div class="protocol-step-body">
+            <p>For every lizard detected, record the following fields on the datasheet before approaching or attempting capture. Movement toward the lizard changes behavior and may cause it to flee.</p>
+            <div class="data-fields">
+              <div class="data-field">
+                <span class="field-label">Time found</span>
+                <span class="field-desc">24:00 format</span>
+              </div>
+              <div class="data-field">
+                <span class="field-label">Spotted by</span>
+                <span class="field-desc">Initials of the observer who detected it</span>
+              </div>
+              <div class="data-field">
+                <span class="field-label">Perch type</span>
+                <span class="field-desc">Branch · Trunk · Leaf · Ground · Rock · Root</span>
+              </div>
+              <div class="data-field">
+                <span class="field-label">Perch H / W</span>
+                <span class="field-desc">Height and width of perch in cm</span>
+              </div>
+              <div class="data-field">
+                <span class="field-label">Notes</span>
+                <span class="field-desc">Any observations relevant to that individual</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="protocol-step" id="ps5">
+          <div class="protocol-step-header">
+            <span class="step-badge">Step 3b</span>
+            <h3>If the lizard is collected — additional measurements</h3>
+          </div>
+          <div class="protocol-step-body">
+            <p>Capture is optional and requires IACUC approval at your institution. If a lizard is captured, measure and record body temperature as quickly as safely possible.</p>
+            <ul class="checklist">
+              <li>Measure body temperature (Tbody) cloacally using a thermocouple with a thin wire probe</li>
+              <li>Hold the lizard by the head to prevent hand-to-lizard heat transfer that could skew Tbody</li>
+              <li>Record air temperature (Tair) at the moment of measurement</li>
+            </ul>
+            <div class="warning-box">
+              <span class="note-icon">🚫</span>
+              <p><strong>Do NOT capture every lizard observed.</strong> Excessive handling may cause lizards to change their sleeping habits to avoid detection. We recommend capturing a maximum of 5 lizards per survey for body temperature sampling.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="protocol-step" id="ps6">
+          <div class="protocol-step-header">
+            <span class="step-badge">Step 4</span>
+            <h3>Complete the survey &amp; record ending time and air temperature</h3>
+          </div>
+          <div class="protocol-step-body">
+            <p>Continue until the end of the transect. Fill in the final data fields before leaving the site.</p>
+            <div class="data-fields">
+              <div class="data-field">
+                <span class="field-label">End time</span>
+                <span class="field-desc">24:00 format</span>
+              </div>
+              <div class="data-field">
+                <span class="field-label">Ending Tair</span>
+                <span class="field-desc">Air temperature (°C) at survey end</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="protocol-step" id="ps7">
+          <div class="protocol-step-header">
+            <span class="step-badge">Step 5</span>
+            <h3>Back up your data</h3>
+          </div>
+          <div class="protocol-step-body">
+            <p>Lost survey data is unrecoverable! Following every survey:</p>
+            <ul class="checklist">
+              <li>Photograph or scan the completed datasheet </li>
+              <li>Enter the data into the shared network spreadsheet</li>
+              <li>Store the original paper datasheet in a designated binder at your institution</li>
+              <li>Upload the scanned/photographed copy to the shared drive folder for your site</li>
+            </ul>
+            <div class="note-box">
+              <span class="note-icon">📋</span>
+              <p>Ensure data is copied and recorded in multiple locations to prevent data loss. The paper datasheet, a scan, and the shared spreadsheet are three independent backups — maintain all three.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MATERIALS -->
+<section id="materials">
+  <div class="section-inner">
+    <p class="section-label">Downloads &amp; resources</p>
+    <h2 class="section-title">Materials for participating teams</h2>
+    <p class="section-intro">All documents are versioned — check the date before each field season and use the most current version.</p>
+    <div class="materials-grid">
+
+      <div class="material-card">
+        <div class="material-icon" style="background: #1a1f2e; font-size: 24px;">📊</div>
+        <h3>Network data spreadsheet</h3>
+        <p>The shared Google Sheet where all survey data is entered. Contains tabs for nightly encounter data and site metadata. Requires edit access — request via the contact form.</p>
+        <a href="#" class="download-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Open in Google Sheets
+        </a>
+      </div>
+
+      <div class="material-card">
+        <div class="material-icon" style="background: #fff4e0; font-size: 24px;">📋</div>
+        <h3>Field datasheet (printable)</h3>
+        <p>Two-sided PDF datasheet for recording survey information. Print one copy per survey night. <strong>Current version: September 2025.</strong></p>
+        <a href="sleeping_lizard_survey_datasheet_20250927.pdf" class="download-btn" download>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download PDF
+        </a>
+      </div>
+
+      <div class="material-card">
+        <div class="material-icon" style="background: #f0e8f4; font-size: 24px;">📄</div>
+        <h3>Survey protocol</h3>
+        <p>The full protocol document, including project overview, equipment list, study site guidance, iButton deployment instructions, and complete data collection procedure. Read before your first survey.</p>
+        <a href="sleeping_lizard_survey_protocol_20250929.pdf" class="download-btn" download>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download PDF
+        </a>
+      </div>
+
+      <div class="material-card">
+        <div class="material-icon" style="background: #ffe8e8; font-size: 24px;">📝</div>
+        <h3>IACUC protocol template</h3>
+        <p>Our GT-approved IACUC protocol can be used as a template for submission at your institution.</p>
+        <a href="#" class="download-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download .docx
+        </a>
+      </div>
+
+      <div class="material-card">
+        <div class="material-icon" style="background: #e8eef8; font-size: 24px;">🌡️</div>
+        <h3>Stationary temperature loggers</h3>
+        <p>We deploy iButton or HOBO temperature loggers across the site in three different treatments: tree branch, leaf litter, and under cover such as a rock or log. Reach out directly for detailed guidance.</p>
+        <a href="#" class="download-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download PDF
+        </a>
+      </div>
+
+      <div class="material-card">
+        <div class="material-icon" style="background: #e8f8f4; font-size: 24px;">🗺️</div>
+        <h3>Transect map (GT site)</h3>
+        <p>High-resolution version of the GT EcoCommons transect map for reference.</p>
+        <a href="study_site_transect.png" class="download-btn" download>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download image
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <p class="section-label">The team</p>
+    <h2 class="section-title">Get in touch</h2>
+    <p class="section-intro">Questions about the project, site selection, protocol, or data entry can go to either of us. For urgent field questions, text is fastest.</p>
+    <div class="contact-grid">
+
+      <div class="contact-card">
+        <div class="contact-header">
+          <div class="contact-avatar">TW</div>
+          <div class="contact-info">
+            <h3>Taylor L. Cooper</h3>
+            <div class="role">PhD Student</div>
+            <div class="affil">Georgia Institute of Technology</div>
+          </div>
+        </div>
+        <div class="contact-links">
+          <a href="mailto:tcooper84@gatech.edu" class="contact-link">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            tcooper84@gatech.edu
+          </a>
+          <a href="tel:+14044933200" class="contact-link">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13 19.79 19.79 0 0 1 1.61 4.38 2 2 0 0 1 3.6 2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.1 6.1l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            +1 (404) 493-3200
+          </a>
+          <a href="https://scholar.google.com/citations?user=Eu77UicAAAAJ&hl=en&oi=ao" target="_blank" rel="noopener" class="contact-link">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 14l9-5-9-5-9 5 9 5z"/><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
+            Google Scholar
+          </a>
+        </div>
+      </div>
+
+      <div class="contact-card">
+        <div class="contact-header">
+          <div class="contact-avatar" style="background: #e8eef8; color: #2d3550;">JS</div>
+          <div class="contact-info">
+            <h3>James T. Stroud</h3>
+            <div class="role">Principle Investigator</div>
+            <div class="affil">Georgia Institute of Technology</div>
+          </div>
+        </div>
+        <div class="contact-links">
+          <a href="mailto:stroud@gatech.edu" class="contact-link">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            stroud@gatech.edu
+          </a>
+          <a href="https://sites.gatech.edu/stroudlab/" target="_blank" rel="noopener" class="contact-link">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            Lab Website
+          </a>
+          <a href="https://scholar.google.com/citations?user=2QdWvJ4AAAAJ&hl=en&oi=ao" target="_blank" rel="noopener" class="contact-link">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 14l9-5-9-5-9 5 9 5z"/><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
+            Google Scholar
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="collab-banner">
+      <div>
+        <h3>Ready to join the network?</h3>
+        <p>We welcome collaborators from any institution with green anole populations nearby — grad students, postdocs, faculty, all welcome.</p>
+      </div>
+      <a href="mailto:tcooper84@gatech.edu?subject=Sleeping%20Lizard%20Project%20%E2%80%94%20collaboration%20inquiry" class="collab-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        Email us to get started
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <span class="footer-logo">The Sleeping Lizard Project</span>
+    <span>Stroud Lab · Georgia Institute of Technology · School of Biological Sciences</span>
+    <span>
+      <a href="https://github.com/YOURGITHUB/sleeping-lizard-project" target="_blank" rel="noopener">GitHub</a>
+      &nbsp;·&nbsp;
+      <a href="mailto:tcooper84@gatech.edu">Contact</a>
+    </span>
+  </div>
+</footer>
+
+</body>
+</html>
