@@ -135,16 +135,23 @@
     margin: 0 auto;
     position: relative;
     z-index: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero-top {
     display: grid;
     grid-template-columns: 1fr auto;
     gap: 3rem;
-    align-items: start;
+    align-items: stretch;
+    margin-bottom: 2rem;
   }
 
   .hero-badge {
     display: inline-flex;
     align-items: center;
     gap: 8px;
+    align-self: flex-start;
     background: rgba(138, 184, 138, 0.12);
     border: 1px solid rgba(138, 184, 138, 0.3);
     color: var(--canopy-light);
@@ -155,6 +162,30 @@
     padding: 5px 14px;
     border-radius: 20px;
     margin-bottom: 1.5rem;
+  }
+
+  .hero-photo-wrap {
+    display: flex;
+    flex-direction: column;
+    max-width: 480px;
+    min-width: 280px;
+  }
+
+  .hero-photo {
+    width: 100%;
+    flex: 1 1 auto;
+    min-height: 0;
+    object-fit: cover;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.35);
+  }
+
+  .hero-photo-caption {
+    font-size: 13px;
+    color: rgba(250,248,244,0.5);
+    text-align: center;
+    font-style: italic;
   }
 
   .hero-badge-dot {
@@ -202,6 +233,7 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
+    align-self: flex-start;
     background: var(--canopy-mid);
     color: white;
     font-size: 14px;
@@ -216,12 +248,17 @@
 
   .hero-meta {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
     gap: 1rem;
-    min-width: 190px;
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255,255,255,0.09);
   }
 
   .meta-card {
+    flex: 1;
+    min-width: 170px;
     background: rgba(255,255,255,0.05);
     border: 1px solid rgba(255,255,255,0.09);
     border-radius: 10px;
@@ -267,6 +304,38 @@
     margin: 0 auto;
   }
 
+  .gs-top {
+    margin-bottom: 2.5rem;
+  }
+
+  .section-info .section-intro {
+    margin-bottom: 0;
+  }
+
+  .gs-photos {
+    display: flex;
+    gap: 1.25rem;
+    margin-top: 1.75rem;
+  }
+
+  .gs-photos img {
+    flex: 1 1 0;
+    min-width: 0;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 1px solid var(--divider);
+  }
+
+  @media (max-width: 820px) {
+    .gs-photos img:nth-child(3) { display: none; }
+  }
+
+  @media (max-width: 560px) {
+    .gs-photos img:nth-child(2) { display: none; }
+  }
+
   .section-label {
     font-size: 11px;
     font-weight: 500;
@@ -293,7 +362,26 @@
     line-height: 1.8;
   }
 
+  .section-intro-full {
+    max-width: none;
+  }
+
   /* ── OVERVIEW ── */
+  .overview-photos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .overview-photos img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 12px;
+    border: 1px solid var(--divider);
+  }
+
   .overview-grid {
     display: grid;
     grid-template-columns: 1.1fr 0.9fr;
@@ -415,6 +503,13 @@
   .transect-caption {
     font-size: 13px;
     color: rgba(250,248,244,0.45);
+    margin-top: 0.75rem;
+    font-style: italic;
+  }
+
+  .light-bg-caption {
+    font-size: 13px;
+    color: var(--text-light);
     margin-top: 0.75rem;
     font-style: italic;
   }
@@ -947,22 +1042,22 @@
   .contact-header {
     display: flex;
     gap: 1.25rem;
-    align-items: start;
+    align-items: center;
     margin-bottom: 1.25rem;
     padding-bottom: 1.25rem;
     border-bottom: 1px solid var(--divider);
   }
 
   .contact-avatar {
-    width: 52px;
-    height: 52px;
+    width: 88px;
+    height: 88px;
     border-radius: 50%;
     background: var(--canopy-pale);
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: 'Lora', serif;
-    font-size: 17px;
+    font-size: 28px;
     font-weight: 600;
     color: var(--canopy);
     flex-shrink: 0;
@@ -1086,15 +1181,63 @@
   footer a:hover { color: rgba(250,248,244,0.9); }
 
 
+  /* ── LIGHTBOX ── */
+  img {
+    cursor: zoom-in;
+  }
+
+  .lightbox-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(15, 12, 10, 0.92);
+    padding: 3rem 2rem;
+    align-items: center;
+    justify-content: center;
+    cursor: zoom-out;
+  }
+
+  .lightbox-overlay.active {
+    display: flex;
+  }
+
+  .lightbox-overlay img {
+    max-width: 90vw;
+    max-height: 88vh;
+    width: auto;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 30px 70px rgba(0,0,0,0.5);
+    cursor: zoom-out;
+  }
+
+  .lightbox-close {
+    position: fixed;
+    top: 24px;
+    right: 32px;
+    color: rgba(250,248,244,0.8);
+    font-size: 32px;
+    line-height: 1;
+    font-weight: 300;
+    cursor: pointer;
+    z-index: 1001;
+  }
+
+  .lightbox-close:hover {
+    color: var(--warm-white);
+  }
+
   /* ── RESPONSIVE ── */
   @media (max-width: 780px) {
-    .hero-inner,
     .overview-grid,
+    .overview-photos,
     .transect-layout,
     .transect-bottom-row,
     .protocol-layout,
     .equipment-split { grid-template-columns: 1fr; }
-    .hero-meta { flex-direction: row; flex-wrap: wrap; }
+    .hero-top { grid-template-columns: 1fr; }
+    .hero-photo-wrap { max-width: 100%; }
     .meta-card { flex: 1; min-width: 130px; }
     .protocol-nav { display: none; }
     .collab-banner { flex-direction: column; }
@@ -1123,17 +1266,23 @@
 <!-- HERO -->
 <header class="hero">
   <div class="hero-inner">
-    <div>
-      <div class="hero-badge">
-        <span class="hero-badge-dot"></span>
-        Cross-institution Research Collaboration
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      Cross-institution Research Collaboration
+    </div>
+    <div class="hero-top">
+      <div>
+        <h1>When do lizards stop sleeping in the trees?</h1>
+        <p class="hero-sub">Green anoles sleep exposed on leaves and twigs all summer long — then vanish in winter. We're building a network of collaborators to track <em>Anolis carolinensis</em> sleeping habits across their range. We want to know <strong>when</strong> green anoles change their sleeping perch in an effort to understand thermal evolution at range edges. </p>
+        <a href="#getting-started" class="hero-cta">
+          Join the network
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
       </div>
-      <h1>When do lizards stop sleeping in the trees?</h1>
-      <p class="hero-sub">Green anoles sleep exposed on leaves and twigs all summer long — then vanish in winter. We're building a network of collaborators to track <em>Anolis carolinensis</em> sleeping habits across their range. We want to know <strong>when</strong> green anoles change their sleeping perch in an effort to understand thermal evolution at range edges. </p>
-      <a href="#getting-started" class="hero-cta">
-        Join the network
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
+      <figure class="hero-photo-wrap">
+        <img src="sleeping_anoles.png" alt="Sleeping anoles" class="hero-photo">
+        <figcaption class="transect-caption">Fig. 1 — Green anoles sleeping on exposed vegetation during nighttime transect surveys.</figcaption>
+      </figure>
     </div>
     <div class="hero-meta">
       <div class="meta-card">
@@ -1158,6 +1307,16 @@
 <!-- OVERVIEW -->
 <section id="overview">
   <div class="section-inner">
+    <div class="overview-photos">
+      <figure>
+        <img src="ancar_range.png" alt="Range map of Anolis carolinensis">
+        <figcaption class="light-bg-caption">Fig. 2 — Geographic range of <em>Anolis carolinensis</em> across the southeastern United States.</figcaption>
+      </figure>
+      <figure>
+        <img src="temp_map.png" alt="Winter temperature map">
+        <figcaption class="light-bg-caption">Fig. 3 — Minimum annual temperatures across the green anole's range.</figcaption>
+      </figure>
+    </div>
     <p class="section-label">About the project</p>
     <h2 class="section-title">A nocturnal window into thermal limits</h2>
     <div class="overview-grid">
@@ -1214,7 +1373,7 @@
         <div class="transect-map-wrap">
           <img src="study_site_transect.png" alt="Aerial map of the GT EcoCommons study site showing the survey transect route marked in yellow, starting near State Street NW and ending near the GTRI Research area, passing through the EcoCommons natural area.">
         </div>
-        <p class="transect-caption">Fig. 1 — GT EcoCommons study area and transect. Dotted line segment is not re-surveyed (surveyed outbound only).</p>
+        <p class="transect-caption">Fig. 4 — GT EcoCommons study area and transect. Dotted line segment is not re-surveyed (surveyed outbound only).</p>
       </div>
       <div class="transect-details">  <!-- right column: stat cards -->
         <div class="transect-stat">
@@ -1253,7 +1412,7 @@
         <div class="transect-map-wrap">
           <img src="lizards_temp.png" alt="Graph showing body temperature measurements of green anoles recorded during a nocturnal survey, plotted against time or air temperature.">
         </div>
-        <p class="transect-caption">Fig. 2 — Total <em>Anolis carolinensis</em> recorded during a nocturnal survey at the GT EcoCommons site. Each point represents a single survey night with 0-lizard nights in gray. Minimum air temperature recorded by iButtons in the 24 hours preceding the survey.</p>
+        <p class="transect-caption">Fig. 5 — Total <em>Anolis carolinensis</em> recorded during a nocturnal survey at the GT EcoCommons site. Each point represents a single survey night with 0-lizard nights in gray. Minimum air temperature recorded by iButtons in the 24 hours preceding the survey.</p>
       </div>
     </div>
 
@@ -1263,9 +1422,18 @@
 <!-- GETTING STARTED -->
 <section id="getting-started">
   <div class="section-inner">
-    <p class="section-label">Joining the network</p>
-    <h2 class="section-title">How to get your institution involved</h2>
-    <p class="section-intro">To get started, reach out for a quick conversation with the project leads, find a suitable study site, and get IACUC approval at your institution. Here's the path from start to your first survey night.</p>
+    <div class="gs-top">
+      <div class="section-info">
+        <p class="section-label">Joining the network</p>
+        <h2 class="section-title">How to get your institution involved</h2>
+        <p class="section-intro section-intro-full">To get started, reach out for a quick conversation with the project leads, find a suitable study site, and get IACUC approval at your institution. Here's the path from start to your first survey night.</p>
+        <div class="gs-photos">
+          <img src="survey_people1.jpg" alt="Survey team member in the field">
+          <img src="survey_people2.jpg" alt="Survey team member in the field">
+          <img src="survey_people3.jpg" alt="Survey team member in the field">
+        </div>
+      </div>
+    </div>
     <div class="steps-grid">
       <div class="step-card">
         <div class="step-number">01</div>
@@ -1330,7 +1498,7 @@
   <div class="section-inner">
     <p class="section-label">What to bring</p>
     <h2 class="section-title">Equipment</h2>
-    <p class="section-intro">Evening surveys require minimal gear. Temperature data collection is strongly encouraged but not required to participate.</p>
+    <p class="section-intro section-intro-full">Evening surveys require minimal gear. Temperature data collection is strongly encouraged but not required to participate.</p>
     <div class="equipment-split">
       <div class="equip-group">
         <div class="equip-group-header">
@@ -1369,7 +1537,7 @@
   <div class="section-inner">
     <p class="section-label">Survey methodology</p>
     <h2 class="section-title">Step-by-step survey protocol</h2>
-    <p class="section-intro">All surveys must follow this protocol. Any deviations — weather, visibility, personnel — should be recorded in the datasheet and flagged to the lead team.</p>
+    <p class="section-intro section-intro-full">All surveys must follow this protocol. Any deviations — weather, visibility, personnel — should be recorded in the datasheet and flagged to the lead team.</p>
 
     <div class="protocol-layout">
       <nav class="protocol-nav" aria-label="Protocol steps">
@@ -1547,7 +1715,7 @@
   <div class="section-inner">
     <p class="section-label">Downloads &amp; resources</p>
     <h2 class="section-title">Materials for participating teams</h2>
-    <p class="section-intro">All documents are versioned — check the date before each field season and use the most current version.</p>
+    <p class="section-intro section-intro-full">All documents are versioned — check the date before each field season and use the most current version.</p>
     <div class="materials-grid">
 
       <div class="material-card">
@@ -1619,7 +1787,7 @@
   <div class="section-inner">
     <p class="section-label">The team</p>
     <h2 class="section-title">Get in touch</h2>
-    <p class="section-intro">Questions about the project, site selection, protocol, or data entry can go to either of us. For urgent field questions, text is fastest.</p>
+    <p class="section-intro section-intro-full">Questions about the project, site selection, protocol, or data entry can go to either of us. For urgent field questions, text is fastest.</p>
     <div class="contact-grid">
 
       <div class="contact-card">
@@ -1703,6 +1871,36 @@
     </span>
   </div>
 </footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox-overlay" id="lightbox">
+  <span class="lightbox-close">&times;</span>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+  (function () {
+    var overlay = document.getElementById('lightbox');
+    var overlayImg = document.getElementById('lightbox-img');
+
+    document.querySelectorAll('img').forEach(function (img) {
+      if (img.id === 'lightbox-img') return;
+      img.addEventListener('click', function () {
+        overlayImg.src = img.currentSrc || img.src;
+        overlayImg.alt = img.alt || '';
+        overlay.classList.add('active');
+      });
+    });
+
+    overlay.addEventListener('click', function () {
+      overlay.classList.remove('active');
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') overlay.classList.remove('active');
+    });
+  })();
+</script>
 
 </body>
 </html>
