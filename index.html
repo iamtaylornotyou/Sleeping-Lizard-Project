@@ -92,6 +92,55 @@
     background: rgba(255,255,255,0.08);
   }
 
+  .nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    padding: 8px;
+    margin: -8px;
+    color: rgba(250,248,244,0.9);
+    cursor: pointer;
+  }
+
+  .nav-toggle svg {
+    display: block;
+    width: 24px;
+    height: 24px;
+  }
+
+  @media (max-width: 780px) {
+    .nav-toggle {
+      display: block;
+    }
+
+    .nav-links {
+      display: none;
+      position: absolute;
+      top: 60px;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      gap: 0;
+      padding: 0.5rem 2rem 1rem;
+      background: rgba(26, 31, 46, 0.98);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .nav-links.nav-open {
+      display: flex;
+    }
+
+    .nav-links li {
+      width: 100%;
+    }
+
+    .nav-links a {
+      display: block;
+      padding: 12px;
+    }
+  }
+
   /* ── HERO ── */
   .hero {
     background: var(--night);
@@ -1252,7 +1301,10 @@
 <nav>
   <div class="nav-inner">
     <a href="#" class="nav-logo">🦎 The Sleeping Lizard Project</a>
-    <ul class="nav-links">
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navLinks">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <ul class="nav-links" id="navLinks">
       <li><a href="#overview">Overview</a></li>
       <li><a href="#transect">Pilot project</a></li>
       <li><a href="#getting-started">Get started</a></li>
@@ -1307,6 +1359,8 @@
 <!-- OVERVIEW -->
 <section id="overview">
   <div class="section-inner">
+    <p class="section-label">About the project</p>
+    <h2 class="section-title">A nocturnal window into thermal limits</h2>
     <div class="overview-photos">
       <figure>
         <img src="ancar_range.png" alt="Range map of Anolis carolinensis">
@@ -1317,8 +1371,6 @@
         <figcaption class="light-bg-caption">Fig. 3 — Minimum annual temperatures across the green anole's range.</figcaption>
       </figure>
     </div>
-    <p class="section-label">About the project</p>
-    <h2 class="section-title">A nocturnal window into thermal limits</h2>
     <div class="overview-grid">
       <div class="overview-body">
         <p>Anoles commonly sleep exposed on leaves and twigs so they can sense approaching predators — a snake slinking down a branch triggers a drop to the ground and escape. This survival strategy is very effective in warm tropical environments, but in temperate climates, sleeping exposed can be risky. If low overnight temperatures dip below the lizard's cold tolerance limit, it risks death.</p>
@@ -1466,7 +1518,7 @@
         <div class="step-number">04</div>
         <h3>Gather equipment</h3>
         <p>Core gear is simple: datasheets, clipboard, tape measure, and headlamps or flashlights. Optional temperature data is highly valuable — iButton loggers and a thermocouple allow site-specific microclimate characterization beyond what weather stations provide.</p>
-        <a href="#protocol" class="step-action">
+        <a href="#equipment" class="step-action">
           View full equipment list
           <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
@@ -1485,7 +1537,7 @@
         <h3>Start surveying &amp; submit data</h3>
         <p>Enter data into the shared network spreadsheet after each survey. Back up your datasheets — scan or photograph them and store in at least two locations. The lead team reviews submissions on a rolling basis and will flag any issues.</p>
         <a href="#materials" class="step-action">
-          Open data spreadsheet
+          View materials
           <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
       </div>
@@ -1494,7 +1546,7 @@
 </section>
 
 <!-- EQUIPMENT -->
-<section>
+<section id="equipment">
   <div class="section-inner">
     <p class="section-label">What to bring</p>
     <h2 class="section-title">Equipment</h2>
@@ -1519,7 +1571,7 @@
           <h3>Optional (strongly recommended)</h3>
         </div>
         <div class="equip-group-body">
-          <div class="equip-item"><div class="equip-dot optional"></div>iButtons or other temperature data logger</div>
+          <div class="equip-item"><div class="equip-dot optional"></div>iButtons, HOBOs, or other temperature data logger</div>
           <div class="equip-item"><div class="equip-dot optional"></div>Lizard pole (for capture)</div>
           <div class="equip-item"><div class="equip-dot optional"></div>Thermocouple with thin wire probe (for body temperature)</div>
         </div>
@@ -1721,10 +1773,12 @@
       <div class="material-card">
         <div class="material-icon" style="background: #1a1f2e; font-size: 24px;">📊</div>
         <h3>Network data spreadsheet</h3>
-        <p>The shared Google Sheet where all survey data is entered. Contains tabs for nightly encounter data and site metadata. Requires edit access — request via the contact form.</p>
-        <a href="#" class="download-btn">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          Open in Google Sheets
+        <p>
+          Each site will receive a unique Google Sheet for data entry. This will be created and shared when your institution joins the project. Request via the contact form.
+        </p>
+        <a href="#contact" class="download-btn">
+          Get in touch
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
       </div>
 
@@ -1752,7 +1806,7 @@
         <div class="material-icon" style="background: #ffe8e8; font-size: 24px;">📝</div>
         <h3>IACUC protocol template</h3>
         <p>Our GT-approved IACUC protocol can be used as a template for submission at your institution.</p>
-        <a href="#" class="download-btn">
+        <a href="IACUC_reference_20260623.docx" class="download-btn">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           Download .docx
         </a>
@@ -1762,9 +1816,9 @@
         <div class="material-icon" style="background: #e8eef8; font-size: 24px;">🌡️</div>
         <h3>Stationary temperature loggers</h3>
         <p>We deploy iButton or HOBO temperature loggers across the site in three different treatments: tree branch, leaf litter, and under cover such as a rock or log. Reach out directly for detailed guidance.</p>
-        <a href="#" class="download-btn">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Download PDF
+        <a href="https://www.onsetcomp.com/products/data-loggers/mx2201?_gl=1*1o19xqt*_up*MQ..*_ga*MjAzNjk0OTYyNi4xNzgzMDIyMTk2*_ga_LTLN49Z006*czE3ODMwMjIxOTYkbzEkZzEkdDE3ODMwMjIyMzgkajE4JGwwJGgxNDQ0NzU5MTE4" class="download-btn" target="_blank" rel="noopener noreferrer">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Visit HOBO Website
         </a>
       </div>
 
@@ -1898,6 +1952,23 @@
 
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') overlay.classList.remove('active');
+    });
+  })();
+
+  (function () {
+    var toggle = document.getElementById('navToggle');
+    var links = document.getElementById('navLinks');
+
+    toggle.addEventListener('click', function () {
+      var isOpen = links.classList.toggle('nav-open');
+      toggle.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    links.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        links.classList.remove('nav-open');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
     });
   })();
 </script>
